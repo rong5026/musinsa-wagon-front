@@ -1,0 +1,17 @@
+.idea/*
+.DS_Store
+node_modules/*
+logs/*
+.vscode/*
+.husky/*
+.next/*
+package.json
+package-lock.json
+yarn.lock
+.gitignore
+README.md
+build-dev/*
+build-stage/*
+build/*
+src/queries/auto-generated/*
+src/types/*
