@@ -1,18 +1,36 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "allowJs": false, // JavaScript 파일 컴파일을 허용하지 않습니다. TypeScript만 사용할 경우 false가 적절합니다.
+    "skipLibCheck": true, // 선언 파일(*.d.ts)의 타입 검사를 건너뜁니다. 빌드 시간 단축에 도움이 됩니다.
+    "resolveJsonModule": true, // JSON 파일을 모듈로 import할 수 있게 해줍니다.
+    "strict": true, // 모든 엄격한 타입 검사 옵션을 활성화합니다.
+    "noEmit": true, // JavaScript 파일을 생성하지 않습니다. Next.js는 자체적으로 컴파일하므로 true가 적절합니다.
+    "jsx": "preserve", // JSX 문법을 그대로 유지합니다. Next.js에서는 "preserve"가 적절합니다.
+    "removeComments": true, // 컴파일 시 주석을 제거합니다.
+    "declaration": false, // 타입 정의 파일(.d.ts)을 자동으로 생성합니다.
+    "forceConsistentCasingInFileNames": true, // 파일 이름의 대소문자를 일관되게 적용합니다.
+    "allowUnreachableCode": false, // 도달할 수 없는 코드에 대해 에러를 발생시킵니다.
+    "allowUnusedLabels": false, // 사용되지 않는 레이블에 대해 에러를 발생시킵니다.
+    "noImplicitAny": true, // 암시적 any 타입을 금지합니다.
+    "strictNullChecks": true, // null과 undefined 체크를 엄격하게 합니다.
+    "strictFunctionTypes": false, // 함수 파라미터 타입 체크를 엄격하게 합니다.
+    "strictPropertyInitialization": true, // 클래스 프로퍼티 초기화를 엄격하게 체크합니다.
+    "noImplicitThis": true, // this 키워드의 타입을 엄격하게 체크합니다.
+    "esModuleInterop": true, // ES 모듈 시스템을 활성화합니다.
+    "module": "esnext", // 모듈 시스템을 지정합니다.
+    "moduleResolution": "bundler", // 모듈 해석 방법을 지정합니다.
+    "isolatedModules": true, // 각 파일을 독립적으로 처리하여 모듈 간 의존성을 엄격하게 관리합니다.
+    "incremental": true, // 증분 컴파일을 활성화합니다. 빌드 시간 단축에 도움이 됩니다.
+    "noUnusedLocals": true, // 사용하지 않는 지역 변수에 대해 에러를 발생시킵니다.
+    "noUnusedParameters": true, // 사용하지 않는 파라미터에 대해 에러를 발생시킵니다.
+    "noImplicitReturns": true, // 함수에서 모든 경로가 return을 포함하도록 합니다.
+    "noFallthroughCasesInSwitch": true, // switch문의 fallthrough를 금지합니다.
+    "lib": [ // 사용할 수 있는 라이브러리들을 지정합니다.
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "plugins": [
       {
         "name": "next"
@@ -22,6 +40,12 @@
       "@/*": ["./src/*"]
     }
   },
+  "typeRoots": [ // 타입 정의 파일을 찾을 위치를 지정합니다.
+  "node_modules/@types",
+  "src/types"
+],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [ // 컴파일에서 제외할 파일들을 지정합니다.
+    "dist",".next","out","node_modules","next.config.js"
+  ]
 }
