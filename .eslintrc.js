@@ -28,6 +28,8 @@ module.exports = {
     '.env',
     'src/queries/auto-generated/*',
     'src/types/*',
+    'middleware.ts',
+    'src/middleware.ts',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
