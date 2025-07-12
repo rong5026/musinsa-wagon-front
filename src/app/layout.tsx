@@ -1,6 +1,8 @@
 import { Provider } from '@/components/provider'
+import { LoadingPage } from '@/components/ui/loading'
 import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 import './globals.css'
 
@@ -13,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+        </Provider>
         <Toaster />
       </body>
     </html>
