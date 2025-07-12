@@ -27,8 +27,6 @@ import {
   FontWeight,
   IconName,
   LucideIcon,
-  SizeStyle,
-  VariantStyle,
 } from './button.types'
 
 // 아이콘 매핑
@@ -54,112 +52,58 @@ export const iconMap: Record<IconName, LucideIcon> = {
   star: Star,
 }
 
-// 사이즈 스타일
-export const getSizeStyles = (iconOnly: boolean): Record<ButtonSize, SizeStyle> => ({
-  small: {
-    padding: iconOnly ? '8px' : '8px 16px',
-    fontSize: '14px',
-    minHeight: '32px',
-  },
-  medium: {
-    padding: iconOnly ? '12px' : '12px 24px',
-    fontSize: '16px',
-    minHeight: '40px',
-  },
-  large: {
-    padding: iconOnly ? '16px' : '16px 32px',
-    fontSize: '18px',
-    minHeight: '48px',
-  },
-  xlarge: {
-    padding: iconOnly ? '20px' : '20px 40px',
-    fontSize: '20px',
-    minHeight: '56px',
-  },
+// 사이즈 스타일 (Tailwind 클래스)
+export const getSizeStyles = (iconOnly: boolean): Record<ButtonSize, string> => ({
+  small: iconOnly ? 'p-2 text-sm min-h-8' : 'px-4 py-2 text-sm min-h-8',
+  medium: iconOnly ? 'p-3 text-base min-h-10' : 'px-6 py-3 text-base min-h-10',
+  large: iconOnly ? 'p-4 text-lg min-h-12' : 'px-8 py-4 text-lg min-h-12',
+  xlarge: iconOnly ? 'p-5 text-xl min-h-14' : 'px-10 py-5 text-xl min-h-14',
 })
 
-// 변형 스타일
-export const getVariantStyles = (
-  backgroundColor?: string,
-  textColor?: string,
-  borderColor?: string,
-  hoverBackgroundColor?: string,
-  hoverTextColor?: string
-): Record<ButtonVariant, VariantStyle> => ({
-  primary: {
-    backgroundColor: backgroundColor || '#3B82F6',
-    color: textColor || '#FFFFFF',
-    borderColor: borderColor || '#3B82F6',
-    hoverBackgroundColor: hoverBackgroundColor || '#2563EB',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  secondary: {
-    backgroundColor: backgroundColor || '#6B7280',
-    color: textColor || '#FFFFFF',
-    borderColor: borderColor || '#6B7280',
-    hoverBackgroundColor: hoverBackgroundColor || '#4B5563',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  success: {
-    backgroundColor: backgroundColor || '#10B981',
-    color: textColor || '#FFFFFF',
-    borderColor: borderColor || '#10B981',
-    hoverBackgroundColor: hoverBackgroundColor || '#059669',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  danger: {
-    backgroundColor: backgroundColor || '#EF4444',
-    color: textColor || '#FFFFFF',
-    borderColor: borderColor || '#EF4444',
-    hoverBackgroundColor: hoverBackgroundColor || '#DC2626',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  warning: {
-    backgroundColor: backgroundColor || '#F59E0B',
-    color: textColor || '#FFFFFF',
-    borderColor: borderColor || '#F59E0B',
-    hoverBackgroundColor: hoverBackgroundColor || '#D97706',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  outline: {
-    backgroundColor: backgroundColor || 'transparent',
-    color: textColor || '#3B82F6',
-    borderColor: borderColor || '#3B82F6',
-    hoverBackgroundColor: hoverBackgroundColor || '#3B82F6',
-    hoverTextColor: hoverTextColor || '#FFFFFF',
-  },
-  ghost: {
-    backgroundColor: backgroundColor || 'transparent',
-    color: textColor || '#6B7280',
-    borderColor: borderColor || 'transparent',
-    hoverBackgroundColor: hoverBackgroundColor || '#F3F4F6',
-    hoverTextColor: hoverTextColor || '#374151',
-  },
-  link: {
-    backgroundColor: backgroundColor || 'transparent',
-    color: textColor || '#3B82F6',
-    borderColor: borderColor || 'transparent',
-    hoverBackgroundColor: hoverBackgroundColor || 'transparent',
-    hoverTextColor: hoverTextColor || '#2563EB',
-  },
+// 변형 스타일 (Tailwind 클래스)
+export const getVariantStyles = (customClasses?: string): Record<ButtonVariant, string> => ({
+  primary:
+    customClasses ||
+    'bg-blue-500 text-white border-blue-500 hover:bg-blue-600 hover:border-blue-600',
+  secondary:
+    customClasses ||
+    'bg-gray-500 text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600',
+  success:
+    customClasses ||
+    'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 hover:border-emerald-600',
+  heart:
+    customClasses ||
+    'text-white hover:text-rose-500 hover:border-rose-500 [&>svg]:hover:fill-current',
+  warning:
+    customClasses ||
+    'bg-amber-500 text-white border-amber-500 hover:bg-amber-600 hover:border-amber-600',
+  outline:
+    customClasses ||
+    'bg-transparent text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white hover:border-blue-500',
+  ghost:
+    customClasses ||
+    'bg-transparent text-gray-500 border-transparent hover:bg-gray-100 hover:text-gray-700',
+  link:
+    customClasses ||
+    'bg-transparent text-blue-500 border-transparent hover:bg-transparent hover:text-blue-600 hover:underline',
 })
 
-// 모서리 둥글기 설정
+// 모서리 둥글기 설정 (Tailwind 클래스)
 export const radiusStyles: Record<BorderRadius, string> = {
-  none: '0px',
-  small: '4px',
-  medium: '8px',
-  large: '12px',
-  xlarge: '16px',
-  full: '9999px',
+  none: 'rounded-none',
+  small: 'rounded-sm',
+  medium: 'rounded-md',
+  large: 'rounded-lg',
+  xlarge: 'rounded-xl',
+  full: 'rounded-full',
 }
 
-// 폰트 굵기 설정
+// 폰트 굵기 설정 (Tailwind 클래스)
 export const fontWeightStyles: Record<FontWeight, string> = {
-  light: '300',
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-  extrabold: '800',
+  light: 'font-light',
+  normal: 'font-normal',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
+  extrabold: 'font-extrabold',
 }

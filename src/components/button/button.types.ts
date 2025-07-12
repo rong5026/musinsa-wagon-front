@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 // LucideIcon 타입 정의
 export type LucideIcon = React.ComponentType<{ size?: number; className?: string }>
@@ -8,7 +8,7 @@ export type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'success'
-  | 'danger'
+  | 'heart'
   | 'warning'
   | 'outline'
   | 'ghost'
@@ -56,17 +56,10 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   size?: ButtonSize
   fullWidth?: boolean
 
-  // 색상 관련
-  backgroundColor?: string
-  textColor?: string
-  borderColor?: string
-  hoverBackgroundColor?: string
-  hoverTextColor?: string
-
-  // 텍스트 관련
-  fontSize?: string | number
+  // 스타일 관련
   fontWeight?: FontWeight
   textAlign?: TextAlign
+  customColors?: string
 
   // 모양 관련
   borderRadius?: BorderRadius
@@ -82,24 +75,8 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   // 애니메이션 관련
   animation?: boolean
   loading?: boolean
+  enableHover?: boolean
 
   // 추가 속성
   className?: string
-  style?: CSSProperties
-}
-
-// 사이즈 스타일 타입
-export interface SizeStyle {
-  padding: string
-  fontSize: string
-  minHeight: string
-}
-
-// 변형 스타일 타입
-export interface VariantStyle {
-  backgroundColor: string
-  color: string
-  borderColor: string
-  hoverBackgroundColor: string
-  hoverTextColor: string
 }

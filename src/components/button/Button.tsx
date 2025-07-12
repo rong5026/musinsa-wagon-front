@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import React from 'react'
 
 import {
   fontWeightStyles,
@@ -22,17 +22,10 @@ const Button: React.FC<ButtonProps> = ({
   size = 'medium',
   fullWidth = false,
 
-  // 색상 관련
-  backgroundColor,
-  textColor,
-  borderColor,
-  hoverBackgroundColor,
-  hoverTextColor,
-
-  // 텍스트 관련
-  fontSize,
+  // 스타일 관련
   fontWeight = 'medium',
   textAlign = 'center',
+  customColors,
 
   // 모양 관련
   borderRadius = 'medium',
@@ -51,71 +44,41 @@ const Button: React.FC<ButtonProps> = ({
 
   // 추가 속성
   className = '',
-  style = {},
   ...props
 }) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false)
-
   const IconComponent = typeof icon === 'string' ? iconMap[icon as IconName] : icon
 
-  const sizeStyles = getSizeStyles(iconOnly)
-  const variantStyles = getVariantStyles(
-    backgroundColor,
-    textColor,
-    borderColor,
-    hoverBackgroundColor,
-    hoverTextColor
-  )
+  const sizeClasses = getSizeStyles(iconOnly)[size]
+  const variantClasses = getVariantStyles(customColors)[variant]
+  const radiusClasses = radiusStyles[borderRadius]
+  const fontWeightClasses = fontWeightStyles[fontWeight]
 
-  const currentVariant = variantStyles[variant]
-  const currentSize = sizeStyles[size]
-
-  const buttonStyle: CSSProperties = {
-    // 기본 스타일
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: iconOnly ? 'center' : textAlign,
-    gap: iconOnly ? '0' : '8px',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    border: border ? `1px solid ${currentVariant.borderColor}` : 'none',
-    borderRadius: radiusStyles[borderRadius],
-    fontFamily: 'inherit',
-    textDecoration: 'none',
-    userSelect: 'none',
-    outline: 'none',
-    position: 'relative',
-    overflow: 'hidden',
-
-    // 크기 관련
-    ...currentSize,
-    width: fullWidth ? '100%' : 'auto',
-    fontSize: fontSize || currentSize.fontSize,
-    fontWeight: fontWeightStyles[fontWeight],
-
-    // 색상 관련
-    backgroundColor: isHovered
-      ? currentVariant.hoverBackgroundColor
-      : currentVariant.backgroundColor,
-    color: isHovered ? currentVariant.hoverTextColor : currentVariant.color,
-
-    // 그림자
-    boxShadow: shadow ? '0 2px 4px rgba(0, 0, 0, 0.1)' : 'none',
-
-    // 애니메이션
-    transition: animation ? 'all 0.2s ease-in-out' : 'none',
-    transform: animation && isHovered && !disabled ? 'translateY(-1px)' : 'none',
-
-    // 비활성화 상태
-    opacity: disabled ? 0.5 : 1,
-
-    // 로딩 상태
-    ...(loading && {
-      color: 'transparent',
-    }),
-
-    // 커스텀 스타일
-    ...style,
+  // 텍스트 정렬 클래스
+  const textAlignClasses = {
+    left: 'justify-start',
+    center: 'justify-center',
+    right: 'justify-end',
   }
+
+  // 기본 클래스들
+  const baseClasses = [
+    'inline-flex items-center font-inherit select-none outline-none relative overflow-hidden transition-all duration-200',
+    iconOnly ? 'justify-center' : textAlignClasses[textAlign],
+    iconOnly ? '' : 'gap-2',
+    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+    fullWidth ? 'w-full' : 'w-auto',
+    border ? 'border' : 'border-0',
+    shadow ? 'shadow-md hover:shadow-lg' : '',
+    animation && !disabled ? 'hover:-translate-y-0.5 active:translate-y-0' : '',
+    loading ? 'text-transparent' : '',
+    radiusClasses,
+    fontWeightClasses,
+    sizeClasses,
+    variantClasses,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <>
@@ -123,28 +86,14 @@ const Button: React.FC<ButtonProps> = ({
         type={type}
         disabled={disabled || loading}
         onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        style={buttonStyle}
-        className={className}
+        className={baseClasses}
         {...props}
       >
         {/* 로딩 스피너 */}
         {loading && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '20px',
-              height: '20px',
-              border: '2px solid transparent',
-              borderTop: '2px solid currentColor',
-              borderRadius: '50%',
-              animation: 'spin 1s linear infinite',
-            }}
-          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+          </div>
         )}
 
         {/* 아이콘 (왼쪽) */}
@@ -161,14 +110,6 @@ const Button: React.FC<ButtonProps> = ({
           <IconComponent size={iconSize} />
         )}
       </button>
-
-      {/* 애니메이션 스타일 */}
-      <style>{`
-        @keyframes spin {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-      `}</style>
     </>
   )
 }

@@ -17,56 +17,56 @@ export default {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'outline', 'ghost', 'link'],
-      describe: '버튼 스타일',
+      options: ['primary', 'secondary', 'success', 'heart', 'warning', 'outline', 'ghost', 'link'],
+      description: '버튼 스타일 변형',
     },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large', 'xlarge'],
-      describe: '버튼 크기',
+      description: '버튼 크기',
     },
     borderRadius: {
       control: 'select',
       options: ['none', 'small', 'medium', 'large', 'xlarge', 'full'],
-      describe: '버튼 모서리 둥글기',
+      description: '버튼 모서리 둥글기',
     },
     fontWeight: {
       control: 'select',
       options: ['light', 'normal', 'medium', 'semibold', 'bold', 'extrabold'],
-      describe: '버튼 텍스트 두께',
+      description: '버튼 텍스트 두께',
     },
     textAlign: {
       control: 'select',
       options: ['left', 'center', 'right'],
-      describe: '버튼 텍스트 정렬',
+      description: '버튼 텍스트 정렬',
     },
-    backgroundColor: {
-      control: 'color',
-      describe: '버튼 배경색',
+    customColors: {
+      control: 'text',
+      description: '커스텀 Tailwind 클래스 (예: bg-purple-500 hover:bg-purple-600)',
     },
-    textColor: {
-      control: 'color',
-      describe: '버튼 텍스트 색상',
+    fullWidth: {
+      control: 'boolean',
+      description: '전체 너비 버튼',
     },
     disabled: {
       control: 'boolean',
-      describe: '버튼 비활성화 여부',
+      description: '버튼 비활성화 여부',
     },
     loading: {
       control: 'boolean',
-      describe: '버튼 로딩 상태',
+      description: '버튼 로딩 상태',
     },
     animation: {
       control: 'boolean',
-      describe: '버튼 애니메이션 여부',
+      description: '버튼 호버 애니메이션',
     },
     shadow: {
       control: 'boolean',
-      describe: '버튼 그림자 여부',
+      description: '버튼 그림자 효과',
     },
     border: {
       control: 'boolean',
-      describe: '버튼 테두리 여부',
+      description: '버튼 테두리 표시',
     },
     icon: {
       control: 'select',
@@ -91,16 +91,20 @@ export default {
         'home',
         'star',
       ],
-      describe: '아이콘 이름',
+      description: '아이콘 이름',
     },
     iconOnly: {
       control: 'boolean',
-      describe: '아이콘 전용 버튼 여부',
+      description: '아이콘 전용 버튼',
     },
     iconPosition: {
       control: 'select',
       options: ['left', 'right'],
-      describe: '아이콘 위치',
+      description: '아이콘 위치',
+    },
+    iconSize: {
+      control: 'number',
+      description: '아이콘 크기 (픽셀)',
     },
     onClick: { action: 'clicked' },
   },
@@ -114,25 +118,11 @@ export const Default = {
   },
 }
 
-export const AllVariants = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="success">Success</Button>
-      <Button variant="danger">Danger</Button>
-      <Button variant="warning">Warning</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: '사용 가능한 버튼 유형 보여주기',
-      },
-    },
+export const Heart = {
+  args: {
+    children: 'Heart Button',
+    variant: 'heart',
+    size: 'medium',
   },
 }
 
@@ -159,10 +149,10 @@ export const AllSizes = {
 export const WithIcons = {
   render: () => (
     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-      <Button icon="shopping-cart" backgroundColor="#3B82F6">
+      <Button icon="shopping-cart" customColors="bg-blue-500 hover:bg-blue-600 text-white">
         구매하기
       </Button>
-      <Button icon="bell" backgroundColor="#10B981">
+      <Button icon="bell" customColors="bg-emerald-500 hover:bg-emerald-600 text-white">
         알림 등록
       </Button>
       <Button icon="download" variant="outline">
@@ -171,7 +161,7 @@ export const WithIcons = {
       <Button icon="plus" iconPosition="right" variant="success">
         추가
       </Button>
-      <Button icon="heart" iconOnly variant="danger" />
+      <Button icon="heart" iconOnly variant="heart" />
       <Button icon="share" iconOnly variant="outline" />
       <Button icon="settings" iconOnly variant="ghost" />
     </div>
@@ -209,13 +199,13 @@ export const BorderRadius = {
 export const CustomColors = {
   render: () => (
     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-      <Button backgroundColor="#8B5CF6" hoverBackgroundColor="#7C3AED" icon="star">
+      <Button customColors="bg-purple-500 hover:bg-purple-600 text-white" icon="star">
         Purple
       </Button>
-      <Button backgroundColor="#EC4899" hoverBackgroundColor="#DB2777" icon="heart">
+      <Button customColors="bg-pink-500 hover:bg-pink-600 text-white" icon="heart">
         Pink
       </Button>
-      <Button backgroundColor="#06B6D4" hoverBackgroundColor="#0891B2" icon="mail">
+      <Button customColors="bg-cyan-500 hover:bg-cyan-600 text-white" icon="mail">
         Cyan
       </Button>
     </div>
@@ -363,7 +353,7 @@ export const RealWorldExamples = {
           <Button variant="outline" icon="x">
             취소
           </Button>
-          <Button variant="danger" icon="trash">
+          <Button variant="heart" icon="trash">
             삭제
           </Button>
         </div>
@@ -404,8 +394,7 @@ export const RealWorldExamples = {
           fullWidth
           size="large"
           icon="shopping-cart"
-          backgroundColor="#059669"
-          hoverBackgroundColor="#047857"
+          customColors="bg-emerald-600 hover:bg-emerald-700 text-white"
         >
           지금 구매하기
         </Button>
