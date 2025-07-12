@@ -1,6 +1,7 @@
 import { Badge } from '@/components/badge'
 import { Button } from '@/components/button'
 import { formatNumber, getPriceChange } from '@/utils/number'
+import { flatMap } from 'es-toolkit'
 import { ArrowDown, ArrowUp, Bell, BellPlus, Heart, Star } from 'lucide-react'
 import React from 'react'
 
@@ -33,6 +34,7 @@ interface ProductCardProps {
   buttonText?: string
   buttonIcon?: React.ReactNode
   enableHover?: boolean
+  ieLike?: boolean
   onButtonClick?: (product: Product) => void
   onProductClick?: (product: Product) => void
   onHeartClick?: (product: Product) => void
@@ -49,6 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   buttonText = '알림 등록하기',
   buttonIcon = <BellPlus className="w-4 h-4 mr-2" />,
   enableHover = false,
+  ieLike = false,
   onButtonClick,
   onProductClick,
   onHeartClick,
@@ -117,7 +120,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* 하트 아이콘 (우하단) */}
         <Heart
-          className="absolute bottom-2 right-3 z-20 w-6 h-6 text-white hover:text-rose-500 hover:fill-current transition-all duration-300 cursor-pointer"
+          className={`absolute bottom-2 right-3 z-20 w-6 h-6 hover:text-rose-500 hover:fill-current transition-all duration-300 cursor-pointer ${
+            ieLike ? 'text-rose-500 fill-current' : 'text-white'
+          }`}
           onClick={handleHeartClick}
         />
       </div>
@@ -164,7 +169,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* 평점 및 리뷰 */}
-        <div className="flex items-center mb-4 gap-3">
+        <div className="flex items-center mb-4 gap-2">
           <div className="flex items-center gap-1">
             <Star className="w-4 h-4 text-amber-400 fill-current" />
             <span className="text-sm font-semibold text-gray-700">
@@ -181,7 +186,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             {showNotificationCount && (
               <div className="flex items-center gap-1">
-                <Bell className="w-4 h-4 text-blue-400" />
+                <Bell className="w-4 h-4 text-blue-400 fill-current" />
                 <span>{formatNumber(product.notificationCount || 0)}</span>
               </div>
             )}
@@ -193,7 +198,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={handleButtonClick}
           fullWidth
           border={false}
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-95"
+          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
+           py-3 font-semibold flex items-center justify-center text-sm shadow-lg hover:shadow-xl "
         >
           {buttonIcon}
           {buttonText}

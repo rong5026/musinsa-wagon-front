@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
   iconOnly = false,
 
   // 애니메이션 관련
-  animation = true,
+  animation = false,
   loading = false,
 
   // 추가 속성
