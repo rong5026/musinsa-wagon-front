@@ -27,6 +27,7 @@ export type IconPosition = 'left' | 'right'
 export type IconName =
   | 'shopping-cart'
   | 'bell'
+  | 'bell-plus'
   | 'download'
   | 'plus'
   | 'heart'

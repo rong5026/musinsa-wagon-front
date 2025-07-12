@@ -2,6 +2,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Bell,
+  BellPlus,
   Check,
   Download,
   Edit,
@@ -33,6 +34,7 @@ import {
 export const iconMap: Record<IconName, LucideIcon> = {
   'shopping-cart': ShoppingCart,
   bell: Bell,
+  'bell-plus': BellPlus,
   download: Download,
   plus: Plus,
   heart: Heart,

@@ -1,27 +1,11 @@
 import { Badge } from '@/components/badge'
-import { Button } from '@/components/button'
+import { Button, IconName, LucideIcon } from '@/components/button'
 import { formatNumber, getPriceChange } from '@/utils/number'
 import { flatMap } from 'es-toolkit'
-import { ArrowDown, ArrowUp, Bell, BellPlus, Heart, Star } from 'lucide-react'
+import { ArrowDown, ArrowUp, Bell, BellPlus, Heart, ShoppingCart, Star } from 'lucide-react'
 import React from 'react'
 
-// 상품 데이터 타입 정의
-interface Product {
-  productNumber: number
-  name: string
-  brand: string
-  starScore: number
-  reviewCount: number
-  likeCount: number
-  imgUrl: string
-  shopType: string
-  currentPrice: number
-  previousPrice: number
-  notificationCount?: number
-  isNew?: boolean
-  isBestSeller?: boolean
-  isAdult?: boolean
-}
+import { Product } from './product.types'
 
 // 컴포넌트 Props 타입 정의
 interface ProductCardProps {
@@ -32,7 +16,7 @@ interface ProductCardProps {
   showPreviousPrice?: boolean
   showNotificationCount?: boolean
   buttonText?: string
-  buttonIcon?: React.ReactNode
+  buttonIcon?: IconName | LucideIcon
   enableHover?: boolean
   ieLike?: boolean
   onButtonClick?: (product: Product) => void
@@ -49,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   showPreviousPrice = true,
   showNotificationCount = true,
   buttonText = '알림 등록하기',
-  buttonIcon = <BellPlus className="w-4 h-4 mr-2" />,
+  buttonIcon = 'bell-plus',
   enableHover = false,
   ieLike = false,
   onButtonClick,
@@ -89,7 +73,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   // 가격 변동 정보
   const priceChange = getPriceChange(product.currentPrice, product.previousPrice)
   const isPriceUp = product.currentPrice > product.previousPrice
-  const discountRate = Math.abs(Number(priceChange.percentage))
 
   // 호버 효과 클래스
   const hoverClasses = enableHover
@@ -198,10 +181,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={handleButtonClick}
           fullWidth
           border={false}
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
+          icon={buttonIcon}
+          className="bg-slate-700 hover:bg-slate-800
            py-3 font-semibold flex items-center justify-center text-sm shadow-lg hover:shadow-xl "
         >
-          {buttonIcon}
           {buttonText}
         </Button>
       </div>

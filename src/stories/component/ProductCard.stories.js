@@ -1,7 +1,7 @@
 import { Bell, BellPlus, Heart, ShoppingCart, Star } from 'lucide-react'
 import React from 'react'
 
-import ProductCard from './ProductCard'
+import ProductCard from '../../components/product/ProductCard'
 
 // 샘플 상품 데이터
 const sampleProduct = {
