@@ -127,7 +127,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
 
           {/* 현재 가격 */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
             <span className="text-2xl font-bold text-gray-900">
               {product.currentPrice.toLocaleString()}
               <span className="text-lg font-medium ml-1">원</span>
@@ -136,7 +136,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {/* 가격 변동 표시 */}
             {Math.abs(priceChange.diff) > 0 && (
               <div
-                className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                className={`flex items-center px-2 py-1 rounded-full text-xs font-medium w-fit ${
                   isPriceUp ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'
                 }`}
               >
@@ -145,7 +145,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 ) : (
                   <ArrowDown className="w-3 h-3 mr-1" />
                 )}
-                {Math.abs(Number(priceChange.percentage))}%
+                <span className="sm:hidden">{Math.abs(priceChange.diff).toLocaleString()}원</span>
+                <span className="sm:hidden">&nbsp;(</span>
+                {Math.abs(Number(priceChange.percentage))}%<span className="sm:hidden">)</span>
               </div>
             )}
           </div>
