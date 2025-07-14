@@ -41,6 +41,7 @@ const Button: React.FC<ButtonProps> = ({
   // 애니메이션 관련
   animation = false,
   loading = false,
+  enableHover = false,
 
   // 추가 속성
   className = '',
@@ -49,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
   const IconComponent = typeof icon === 'string' ? iconMap[icon as IconName] : icon
 
   const sizeClasses = getSizeStyles(iconOnly)[size]
-  const variantClasses = getVariantStyles(customColors)[variant]
+  const variantClasses = getVariantStyles(customColors, enableHover)[variant]
   const radiusClasses = radiusStyles[borderRadius]
   const fontWeightClasses = fontWeightStyles[fontWeight]
 
@@ -68,8 +69,8 @@ const Button: React.FC<ButtonProps> = ({
     disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
     fullWidth ? 'w-full' : 'w-auto',
     border ? 'border' : 'border-0',
-    shadow ? 'shadow-md hover:shadow-lg' : '',
-    animation && !disabled ? 'hover:-translate-y-0.5 active:translate-y-0' : '',
+    shadow && enableHover ? 'shadow-md hover:shadow-lg' : shadow ? 'shadow-md' : '',
+    animation && !disabled && enableHover ? 'hover:-translate-y-0.5 active:translate-y-0' : '',
     loading ? 'text-transparent' : '',
     radiusClasses,
     fontWeightClasses,

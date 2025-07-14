@@ -29,6 +29,7 @@ export type IconName =
   | 'bell'
   | 'bell-plus'
   | 'download'
+  | 'list-plus'
   | 'plus'
   | 'heart'
   | 'share'
