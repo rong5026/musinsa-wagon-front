@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button } from '../../components/button/button'
+import { Button } from '../../components/button/Button'
 
 export default {
   title: 'Components/Button',
@@ -60,6 +60,10 @@ export default {
       control: 'boolean',
       description: '버튼 호버 애니메이션',
     },
+    enableHover: {
+      control: 'boolean',
+      description: '호버 효과 활성화',
+    },
     shadow: {
       control: 'boolean',
       description: '버튼 그림자 효과',
@@ -118,11 +122,42 @@ export const Default = {
   },
 }
 
-export const Heart = {
-  args: {
-    children: 'Heart Button',
-    variant: 'heart',
-    size: 'medium',
+// 모든 변형들 스토리
+export const AllVariants = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Button variant="primary" enableHover>
+        Primary
+      </Button>
+      <Button variant="secondary" enableHover>
+        Secondary
+      </Button>
+      <Button variant="success" enableHover>
+        Success
+      </Button>
+      <Button variant="heart" enableHover>
+        Heart
+      </Button>
+      <Button variant="warning" enableHover>
+        Warning
+      </Button>
+      <Button variant="outline" enableHover>
+        Outline
+      </Button>
+      <Button variant="ghost" enableHover>
+        Ghost
+      </Button>
+      <Button variant="link" enableHover>
+        Link
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '사용 가능한 모든 버튼 변형들을 보여줍니다.',
+      },
+    },
   },
 }
 
@@ -130,10 +165,18 @@ export const Heart = {
 export const AllSizes = {
   render: () => (
     <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-      <Button size="small">Small</Button>
-      <Button size="medium">Medium</Button>
-      <Button size="large">Large</Button>
-      <Button size="xlarge">XLarge</Button>
+      <Button size="small" enableHover>
+        Small
+      </Button>
+      <Button size="medium" enableHover>
+        Medium
+      </Button>
+      <Button size="large" enableHover>
+        Large
+      </Button>
+      <Button size="xlarge" enableHover>
+        XLarge
+      </Button>
     </div>
   ),
   parameters: {
@@ -328,6 +371,7 @@ export const Interactive = {
     iconOnly: false,
     shadow: false,
     animation: true,
+    enableHover: true,
     border: true,
   },
   parameters: {

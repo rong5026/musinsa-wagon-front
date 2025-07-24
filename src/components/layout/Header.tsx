@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react'
 import React, { useState } from 'react'
 
-import { Button } from '../button/button'
+import { Button } from '../button'
 import { IconName } from '../button/button.types'
 import NotificationButton from '../notification/NotificationButton'
 

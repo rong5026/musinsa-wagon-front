@@ -1,15 +1,14 @@
 import React from 'react'
 
-import {
-  fontWeightStyles,
-  getSizeStyles,
-  getVariantStyles,
-  iconMap,
-  radiusStyles,
-} from './button.styles'
-import { ButtonProps, IconName } from './button.types'
+import { ButtonIcon } from './ButtonIcon'
+import { LoadingSpinner } from './LoadingSpinner'
+import { ButtonProps } from './button.types'
+import { generateButtonClasses } from './button.utils'
 
-// 버튼 컴포넌트
+/**
+ * 버튼 컴포넌트
+ * 다양한 스타일, 크기, 아이콘을 지원하는 재사용 가능한 버튼
+ */
 const Button: React.FC<ButtonProps> = ({
   // 기본 속성
   children,
@@ -21,8 +20,6 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   size = 'medium',
   fullWidth = false,
-
-  // 스타일 관련
   fontWeight = 'medium',
   textAlign = 'center',
   customColors,
@@ -47,71 +44,52 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const IconComponent = typeof icon === 'string' ? iconMap[icon as IconName] : icon
-
-  const sizeClasses = getSizeStyles(iconOnly)[size]
-  const variantClasses = getVariantStyles(customColors, enableHover)[variant]
-  const radiusClasses = radiusStyles[borderRadius]
-  const fontWeightClasses = fontWeightStyles[fontWeight]
-
-  // 텍스트 정렬 클래스
-  const textAlignClasses = {
-    left: 'justify-start',
-    center: 'justify-center',
-    right: 'justify-end',
-  }
-
-  // 기본 클래스들
-  const baseClasses = [
-    'inline-flex items-center font-inherit select-none outline-none relative overflow-hidden transition-all duration-200',
-    iconOnly ? 'justify-center' : textAlignClasses[textAlign],
-    iconOnly ? '' : 'gap-2',
-    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
-    fullWidth ? 'w-full' : 'w-auto',
-    border ? 'border' : 'border-0',
-    shadow && enableHover ? 'shadow-md hover:shadow-lg' : shadow ? 'shadow-md' : '',
-    animation && !disabled && enableHover ? 'hover:-translate-y-0.5 active:translate-y-0' : '',
-    loading ? 'text-transparent' : '',
-    radiusClasses,
-    fontWeightClasses,
-    sizeClasses,
-    variantClasses,
+  // 버튼 클래스 생성
+  const buttonClasses = generateButtonClasses({
+    variant,
+    size,
+    fullWidth,
+    fontWeight,
+    textAlign,
+    customColors,
+    borderRadius,
+    border,
+    shadow,
+    iconOnly,
+    animation,
+    loading,
+    enableHover,
+    disabled,
     className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+  })
 
   return (
-    <>
-      <button
-        type={type}
-        disabled={disabled || loading}
-        onClick={onClick}
-        className={baseClasses}
-        {...props}
-      >
-        {/* 로딩 스피너 */}
-        {loading && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-          </div>
-        )}
+    <button
+      type={type}
+      disabled={disabled || loading}
+      onClick={onClick}
+      className={buttonClasses}
+      {...props}
+    >
+      {/* 로딩 스피너 */}
+      {loading && <LoadingSpinner />}
 
-        {/* 아이콘 (왼쪽) */}
-        {IconComponent && iconPosition === 'left' && !iconOnly && <IconComponent size={iconSize} />}
+      {/* 왼쪽 아이콘 */}
+      {icon && iconPosition === 'left' && !iconOnly && (
+        <ButtonIcon icon={icon} iconSize={iconSize} iconOnly={false} />
+      )}
 
-        {/* 아이콘 전용 */}
-        {IconComponent && iconOnly && <IconComponent size={iconSize} />}
+      {/* 아이콘 전용 */}
+      {icon && iconOnly && <ButtonIcon icon={icon} iconSize={iconSize} iconOnly={true} />}
 
-        {/* 텍스트 */}
-        {!iconOnly && children}
+      {/* 텍스트 */}
+      {!iconOnly && children}
 
-        {/* 아이콘 (오른쪽) */}
-        {IconComponent && iconPosition === 'right' && !iconOnly && (
-          <IconComponent size={iconSize} />
-        )}
-      </button>
-    </>
+      {/* 오른쪽 아이콘 */}
+      {icon && iconPosition === 'right' && !iconOnly && (
+        <ButtonIcon icon={icon} iconSize={iconSize} iconOnly={false} />
+      )}
+    </button>
   )
 }
 

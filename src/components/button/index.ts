@@ -1,3 +1,6 @@
-export { Button } from './button'
+export { Button } from './Button'
+export { ButtonIcon } from './ButtonIcon'
+export { LoadingSpinner } from './LoadingSpinner'
+export { generateButtonClasses } from './button.utils'
 export type { ButtonProps } from './button.types'
 export type * from './button.types'

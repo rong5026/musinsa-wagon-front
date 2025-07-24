@@ -1,7 +1,7 @@
 import { Bell, X } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Button } from '../button/button'
+import { Button } from '../button'
 
 // 알림 데이터 타입
 interface NotificationItem {

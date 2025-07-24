@@ -46,7 +46,7 @@ const ProductImage = ({
 
       {/* 하트 아이콘 (우하단) */}
       <Heart
-        className={`absolute bottom-2 right-3 z-20 w-6 h-6 hover:text-rose-500 hover:fill-current transition-all duration-300 cursor-pointer ${
+        className={`absolute bottom-2 right-3 z-20 w-6 h-6 cursor-pointer ${
           ieLike ? 'text-rose-500 fill-current' : 'text-white'
         }`}
         onClick={onHeartClick}
