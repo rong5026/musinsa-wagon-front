@@ -131,3 +131,59 @@ pnpm start
 2. Pre-commit hooks run ESLint and Prettier on staged files
 3. Strict TypeScript configuration ensures type safety
 4. Storybook for component development and testing
+
+## File Summary Standards
+
+All files should start with a summary comment to help Claude Code understand the file's purpose quickly:
+
+### TypeScript/JavaScript Files
+
+```typescript
+/**
+ * File Summary: [Brief description of file purpose and main functionality]
+ * Key exports: [Main functions, classes, or components exported]
+ * Dependencies: [Important external dependencies used]
+ */
+```
+
+### React Components
+
+```typescript
+/**
+ * Component Summary: [Component purpose and key features]
+ * Props: [Main props and their types]
+ * Usage: [Common use cases or examples]
+ */
+```
+
+### Hook Files
+
+```typescript
+/**
+ * Hook Summary: [Hook purpose and functionality]
+ * Returns: [What the hook returns]
+ * Usage: [When and how to use this hook]
+ */
+```
+
+### Utility Files
+
+```typescript
+/**
+ * Utils Summary: [What utilities are provided]
+ * Main functions: [Key utility functions]
+ * Purpose: [Why these utilities exist]
+ */
+```
+
+### Style Files
+
+```css
+/*
+ * Style Summary: [Styling purpose and scope]
+ * Components: [Which components these styles target]
+ * Features: [Key styling features or patterns]
+ */
+```
+
+**When Claude Code reads files, it will prioritize these summaries for quick context understanding before analyzing the full code.**
