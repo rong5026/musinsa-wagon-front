@@ -1,6 +1,5 @@
+import { ProductGrid } from '@/features/products'
 import React from 'react'
-
-import ProductGrid from '../../components/product/ProductGrid'
 
 // 샘플 상품 데이터
 const sampleProducts = [

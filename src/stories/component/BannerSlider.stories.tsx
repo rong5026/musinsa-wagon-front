@@ -1,6 +1,5 @@
-import BannerSlider from '@/components/banner/BannerSlider'
-import { BannerItem } from '@/components/banner/BannerSlider'
-import type { Meta, StoryObj } from '@storybook/react'
+import { BannerItem, BannerSlider } from '@/features/banner'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta: Meta<typeof BannerSlider> = {
   title: 'Components/BannerSlider',

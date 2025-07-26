@@ -1,8 +1,8 @@
 'use client'
 
 import MainLayout from '@/components/layout/MainLayout'
-import ProductCardList from '@/components/product/ProductCardList'
-import { Product } from '@/components/product/product.types'
+import { ProductCardList } from '@/features/products'
+import { Product } from '@/features/products/types'
 import React from 'react'
 
 // 샘플 상품 데이터

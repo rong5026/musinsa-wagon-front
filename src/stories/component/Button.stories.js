@@ -1,6 +1,5 @@
+import { Button } from '@/components/base'
 import React, { useState } from 'react'
-
-import { Button } from '../../components/button/Button'
 
 export default {
   title: 'Components/Button',

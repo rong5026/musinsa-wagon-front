@@ -1,4 +1,4 @@
-import { Button } from '@/components/button'
+import { Button } from '@/components/base'
 import {
   Carousel,
   CarouselContent,
@@ -9,8 +9,8 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React from 'react'
 
+import { Product } from '../types/product.types'
 import ProductCard from './ProductCard'
-import { Product } from './product.types'
 
 interface ProductCardListProps {
   products: Product[]

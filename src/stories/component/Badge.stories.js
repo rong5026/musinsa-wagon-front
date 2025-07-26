@@ -1,7 +1,6 @@
+import { Badge } from '@/components/base'
 import { Gift, Heart } from 'lucide-react'
 import React from 'react'
-
-import { Badge } from '../../components/badge/index'
 
 export default {
   title: 'Components/Badge',

@@ -1,10 +1,9 @@
-import { Badge } from '@/components/badge'
-import { Button, IconName, LucideIcon } from '@/components/button'
+import { Badge, Button, IconName, LucideIcon } from '@/components/base'
 import { formatNumber, getPriceChange } from '@/utils/number'
 import { ArrowDown, ArrowUp, Bell, Heart, Star } from 'lucide-react'
 import React from 'react'
 
-import { Product } from './product.types'
+import { Product } from '../types/product.types'
 
 // 상품 이미지 컴포넌트
 const ProductImage = ({

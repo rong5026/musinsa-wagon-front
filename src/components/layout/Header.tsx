@@ -1,9 +1,8 @@
+import { Button } from '@/components/base'
+import { IconName } from '@/components/base/button/button.types'
+import { NotificationButton } from '@/features/notifications'
 import { Search } from 'lucide-react'
 import React, { useState } from 'react'
-
-import { Button } from '../button'
-import { IconName } from '../button/button.types'
-import NotificationButton from '../notification/NotificationButton'
 
 // 로고 컴포넌트
 const Logo = ({ logoText, onClick }: { logoText: string; onClick?: () => void }) => (

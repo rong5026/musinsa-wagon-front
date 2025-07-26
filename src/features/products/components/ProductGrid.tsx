@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { Product } from '../types/product.types'
 import ProductCard from './ProductCard'
-import { Product } from './product.types'
 
 // ProductGrid Props 타입 정의
 interface ProductGridProps {

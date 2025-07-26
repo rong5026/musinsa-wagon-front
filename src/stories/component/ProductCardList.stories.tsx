@@ -1,8 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import { Product, ProductCardList } from '@/features/products'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import React from 'react'
-
-import ProductCardList from '../../components/product/ProductCardList'
-import { Product } from '../../components/product/product.types'
 
 // 샘플 상품 데이터
 const sampleProducts: Product[] = [
