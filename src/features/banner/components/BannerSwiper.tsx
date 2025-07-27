@@ -31,7 +31,7 @@ export interface BannerItem {
   ctaType?: 'primary' | 'secondary' | 'outline'
 }
 
-export interface BannerSliderConfig {
+export interface BannerSwiperConfig {
   autoplay: boolean
   autoplayDelay: number
   showNavigation: boolean
@@ -41,7 +41,7 @@ export interface BannerSliderConfig {
   effect: 'slide' | 'fade'
 }
 
-interface BannerSliderProps extends Partial<BannerSliderConfig> {
+interface BannerSwiperProps extends Partial<BannerSwiperConfig> {
   banners: BannerItem[]
   className?: string
   loading?: boolean
@@ -65,7 +65,7 @@ const validateImageUrl = (url: string): boolean => {
   return url.startsWith('https://') || url.startsWith('data:image/') || url.startsWith('/')
 }
 
-const BannerSlider = memo<BannerSliderProps>(function BannerSlider({
+const BannerSwiper = memo<BannerSwiperProps>(function BannerSwiper({
   banners,
   autoplay = true,
   autoplayDelay = 4000,
@@ -381,4 +381,4 @@ const BannerSlider = memo<BannerSliderProps>(function BannerSlider({
   )
 })
 
-export default BannerSlider
+export default BannerSwiper

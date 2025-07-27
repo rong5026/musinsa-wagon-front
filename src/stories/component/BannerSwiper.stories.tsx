@@ -1,9 +1,9 @@
-import { BannerItem, BannerSlider } from '@/features/banner'
+import { BannerItem, BannerSwiper } from '@/features/banner'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
-const meta: Meta<typeof BannerSlider> = {
-  title: 'Components/BannerSlider',
-  component: BannerSlider,
+const meta: Meta<typeof BannerSwiper> = {
+  title: 'Components/BannerSwiper',
+  component: BannerSwiper,
   parameters: {
     layout: 'fullscreen',
   },
@@ -33,7 +33,7 @@ const meta: Meta<typeof BannerSlider> = {
 }
 
 export default meta
-type Story = StoryObj<typeof BannerSlider>
+type Story = StoryObj<typeof BannerSwiper>
 
 const sampleBanners: BannerItem[] = [
   {

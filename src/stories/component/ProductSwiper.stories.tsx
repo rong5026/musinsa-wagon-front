@@ -1,4 +1,4 @@
-import { Product, ProductCardList } from '@/features/products'
+import { Product, ProductSwiper } from '@/features/products'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import React from 'react'
 
@@ -97,14 +97,14 @@ const sampleProducts: Product[] = [
   },
 ]
 
-const meta: Meta<typeof ProductCardList> = {
-  title: 'Components/ProductCardList',
-  component: ProductCardList,
+const meta: Meta<typeof ProductSwiper> = {
+  title: 'Components/ProductSwiper',
+  component: ProductSwiper,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: '상품 카드들을 반응형 캐러셀로 표시하는 컴포넌트입니다.',
+        component: '상품 카드들을 Swiper 슬라이더로 표시하는 컴포넌트입니다.',
       },
     },
   },
@@ -145,7 +145,7 @@ const meta: Meta<typeof ProductCardList> = {
 }
 
 export default meta
-type Story = StoryObj<typeof ProductCardList>
+type Story = StoryObj<typeof ProductSwiper>
 
 // 기본 스토리
 export const Default: Story = {
@@ -274,7 +274,7 @@ export const RealWorldExample: Story = {
   render: () => (
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-7xl mx-auto space-y-12">
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts.slice(0, 4)}
           title="🔥 오늘의 핫딜"
           itemsPerView={{ mobile: 2, tablet: 3, desktop: 4 }}
@@ -282,7 +282,7 @@ export const RealWorldExample: Story = {
           enableHover
         />
 
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts.slice(1, 6)}
           title="✨ 신상품"
           itemsPerView={{ mobile: 2, tablet: 3, desktop: 5 }}
@@ -290,7 +290,7 @@ export const RealWorldExample: Story = {
           enableHover
         />
 
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts}
           title="👑 베스트셀러"
           itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }}

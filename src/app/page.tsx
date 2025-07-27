@@ -1,7 +1,7 @@
 'use client'
 
 import MainLayout from '@/components/layout/MainLayout'
-import { ProductCardList } from '@/features/products'
+import { ProductSwiper } from '@/features/products'
 import { Product } from '@/features/products/types'
 import React from 'react'
 
@@ -133,7 +133,7 @@ export default function HomePage() {
       {/* 상품 섹션들 */}
       <div className="space-y-16">
         {/* 오늘의 핫딜 */}
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts.slice(0, 4)}
           title="🔥 오늘의 핫딜"
           enableHover
@@ -143,7 +143,7 @@ export default function HomePage() {
         />
 
         {/* 신상품 */}
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts.slice(1, 6)}
           title="✨ 신상품"
           enableHover
@@ -153,7 +153,7 @@ export default function HomePage() {
         />
 
         {/* 베스트셀러 */}
-        <ProductCardList
+        <ProductSwiper
           products={sampleProducts}
           title="👑 베스트셀러"
           enableHover
@@ -163,7 +163,7 @@ export default function HomePage() {
         />
 
         {/* 추천 상품 */}
-        <ProductCardList
+        <ProductSwiper
           products={[...sampleProducts].reverse()}
           title="💝 추천 상품"
           enableHover

@@ -1,3 +1,3 @@
 // Banner feature exports
-export { default as BannerSlider } from './components/BannerSlider'
-export type { BannerItem, BannerSliderConfig } from './components/BannerSlider'
+export { default as BannerSwiper } from './components/BannerSwiper'
+export type { BannerItem, BannerSwiperConfig } from './components/BannerSwiper'
