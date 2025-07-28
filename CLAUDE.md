@@ -187,3 +187,25 @@ All files should start with a summary comment to help Claude Code understand the
 ```
 
 **When Claude Code reads files, it will prioritize these summaries for quick context understanding before analyzing the full code.**
+
+## Coding Standards
+
+### React Components
+
+- **Prefer `export function` over `const` for components**
+  - `export function` provides better hoisting and debugging experience
+  - Function names are clearly displayed in React DevTools
+  - Consistent with Next.js and React ecosystem standards
+
+```typescript
+//  Preferred
+export function MyComponent({ prop }: Props) {
+  return <div>{prop}</div>
+}
+
+// Avoid for components
+const MyComponent = ({ prop }: Props) => {
+  return <div>{prop}</div>
+}
+export default MyComponent
+```
