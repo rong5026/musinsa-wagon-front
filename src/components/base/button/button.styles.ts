@@ -89,7 +89,8 @@ export const getVariantStyles = (
     `bg-transparent text-blue-500 border-blue-500 ${enableHover ? 'hover:bg-blue-500 hover:text-white hover:border-blue-500' : ''}`,
   ghost:
     customClasses ||
-    `bg-transparent text-gray-500 border-transparent ${enableHover ? 'hover:bg-gray-100 hover:text-gray-700' : ''}`,
+    `bg-transparent text-black
+     border-transparent ${enableHover ? 'hover:bg-gray-100 hover:text-gray-700' : ''}`,
   link:
     customClasses ||
     `bg-transparent text-blue-500 border-transparent ${enableHover ? 'hover:bg-transparent hover:text-blue-600 hover:underline' : ''}`,

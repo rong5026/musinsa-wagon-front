@@ -50,25 +50,36 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
     }
   }
 
+  const getIconStyles = (variant?: string) => {
+    switch (variant) {
+      case 'red':
+        return 'group-hover:border-red-500/50 group-hover:text-red-600 group-hover:shadow-red-500/20'
+      case 'blue':
+        return 'group-hover:border-blue-500/50 group-hover:text-blue-600 group-hover:shadow-blue-500/20'
+      case 'green':
+        return 'group-hover:border-green-500/50 group-hover:text-green-600 group-hover:shadow-green-500/20'
+      case 'purple':
+        return 'group-hover:border-purple-500/50 group-hover:text-purple-600 group-hover:shadow-purple-500/20'
+      case 'orange':
+        return 'group-hover:border-orange-500/50 group-hover:text-orange-600 group-hover:shadow-orange-500/20'
+      default:
+        return 'group-hover:border-blue-500/50 group-hover:text-blue-600 group-hover:shadow-blue-500/20'
+    }
+  }
+
   return (
     <button
       onClick={handleClick}
       className={cn(
-        // Base styles
-        'relative flex flex-col items-center gap-3 p-5 rounded-2xl cursor-pointer',
-        'transition-all duration-300 ease-out min-w-[120px] bg-transparent border-2 border-transparent',
-        'group focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
+        // 기본 스타일
+        'relative flex flex-col items-center gap-3 p-5 cursor-pointer min-w-[60px]',
+        'transition-all duration-300 ease-out  bg-transparent border-2 border-transparent',
+        'group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
 
-        // Hover effects
-        'hover:bg-white hover:shadow-lg hover:shadow-indigo-500/10',
-
-        // Active state
-        isActive && 'bg-white shadow-lg shadow-indigo-500/10',
-
-        // Responsive sizing
-        'lg:min-w-[120px] lg:p-5',
-        'md:min-w-[100px] md:p-4',
-        'sm:min-w-[80px] sm:p-3 sm:gap-2',
+        // 반응형 사이즈
+        'lg:min-w-[120px]',
+        'md:min-w-[100px]',
+        'sm:min-w-[40px]',
 
         className
       )}
@@ -77,21 +88,18 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
       {/* Background gradient overlay */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Icon container */}
+      {/* 아이콘 container */}
       <div
         className={cn(
           'relative w-12 h-12 rounded-xl flex items-center justify-center text-2xl overflow-hidden',
           'bg-gradient-to-br from-slate-50 to-slate-200 border border-white/20',
           'transition-all duration-300 ease-out group-hover:scale-105',
-          'group-hover:bg-white/95 group-hover:backdrop-blur-sm group-hover:border-indigo-500/30',
-          'group-hover:shadow-lg group-hover:shadow-indigo-500/20',
+          'group-hover:bg-white/95 group-hover:backdrop-blur-sm group-hover:shadow-lg',
 
-          // Active state
-          isActive && [
-            'bg-gradient-to-br from-indigo-500 to-purple-600 text-white scale-110',
-            'shadow-lg shadow-indigo-500/40 border-white/30',
-            'animate-pulse',
-          ],
+          // Badge variant에 따른 hover 스타일
+          category.badge
+            ? getIconStyles(category.badge.variant)
+            : 'group-hover:border-blue-500/30 group-hover:shadow-blue-500/20',
 
           // Responsive sizing
           'lg:w-12 lg:h-12 lg:text-2xl',
@@ -101,17 +109,17 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
       >
         {/* Icon gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-slate-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
 
-        {/* Icon */}
+        {/* 아이콘*/}
         <span className="relative z-10">{category.icon}</span>
       </div>
 
-      {/* Category text */}
+      {/* 카테고리 문구 */}
       <span
         className={cn(
           'text-sm font-semibold text-gray-700 transition-all duration-300',
-          'tracking-tight group-hover:text-indigo-600 group-hover:font-bold',
+          'tracking-tight group-hover:text-blue-700 group-hover:font-bold',
           isActive && 'text-gray-700 font-bold',
 
           // Responsive text size
@@ -127,7 +135,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
       {category.badge && (
         <div
           className={cn(
-            'absolute top-2 right-2 px-1.5 py-0.5 rounded-lg text-white text-xs font-bold',
+            'absolute top-2 right-3 px-1.5 py-0.5 rounded-lg text-white text-xs font-bold',
             'opacity-0 transform scale-75 group-hover:opacity-100 group-hover:scale-100',
             'transition-all duration-300 ease-out shadow-md',
             getBadgeVariant(category.badge.variant)

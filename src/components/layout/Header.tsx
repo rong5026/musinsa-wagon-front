@@ -1,8 +1,13 @@
+'use client'
+
 import { Button } from '@/components/base'
 import { IconName } from '@/components/base/button/button.types'
 import { NotificationButton } from '@/features/notifications'
-import { Search } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Menu, Search } from 'lucide-react'
 import React, { useState } from 'react'
+
+import { Title } from '../base/text/Title'
 
 // 로고 컴포넌트
 const Logo = ({ logoText, onClick }: { logoText: string; onClick?: () => void }) => (
@@ -153,24 +158,44 @@ const Header = ({
   }
 
   return (
-    <header className={`bg-white border-b border-gray-100 shadow-sm ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Logo logoText={logoText} onClick={handleLogoClick} />
+    <header
+      className={cn(
+        'w-full fixed z-30',
+        'bg-white text-gray-700 border-b border-jnGray-300',
+        'mt-20 sm:mt-1',
+        'px-1 sm:px-4 md:px-4 lg:px-12',
+        'h-16 sm:h-20 lg:h-36 xl:h-40',
+        'transition duration-200 ease-in-out',
+        className
+      )}
+    >
+      <div className="max-w-7xl">
+        <div className="flex items-center justify-between h-20">
+          {/* 모바일/태블릿 */}
+          <div className="flex w-full items-center justify-between lg:hidden">
+            {/* 메뉴 버튼 */}
+            <Button icon={Menu} iconSize={24} iconOnly variant="ghost" />
+            <Title name="MUSINSAWAGON" />
+            {/* 검색 아이콘 */}
+            <Button icon={Search} iconSize={24} iconOnly variant="ghost" />
+          </div>
 
-          <SearchBar
-            searchQuery={searchQuery}
-            placeholder={searchPlaceholder}
-            onSearch={handleSearch}
-            onChange={handleSearchChange}
-            onKeyDown={handleKeyPress}
-          />
-
-          <RightMenu
-            notificationCount={notificationCount}
-            onAddProduct={handleAddProduct}
-            onMyPage={handleMyPage}
-          />
+          {/* PC: 기존 헤더 */}
+          <div className="hidden lg:flex w-full items-center justify-between">
+            <Logo logoText={logoText} onClick={handleLogoClick} />
+            <SearchBar
+              searchQuery={searchQuery}
+              placeholder={searchPlaceholder}
+              onSearch={handleSearch}
+              onChange={handleSearchChange}
+              onKeyDown={handleKeyPress}
+            />
+            <RightMenu
+              notificationCount={notificationCount}
+              onAddProduct={handleAddProduct}
+              onMyPage={handleMyPage}
+            />
+          </div>
         </div>
       </div>
     </header>

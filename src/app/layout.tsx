@@ -1,3 +1,4 @@
+import { Footer, Header } from '@/components/layout'
 import { Provider } from '@/components/provider'
 import { LoadingPage } from '@/components/ui/loading'
 import { Toaster } from '@/components/ui/sonner'
@@ -14,9 +15,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body>
+      <body className="min-h-screen flex flex-col">
         <Provider>
-          <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+          <div className="flex-1">
+            <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+          </div>
+          <Footer />
         </Provider>
         <Toaster />
       </body>
