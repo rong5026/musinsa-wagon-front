@@ -183,7 +183,7 @@ const Header = ({
             </div>
 
             {/* PC: 기존 헤더 */}
-            {/* <div className="hidden lg:flex w-full items-center justify-between">
+            <div className="hidden lg:flex w-full items-center justify-between">
               <Logo logoText={logoText} onClick={handleLogoClick} />
               <SearchBar
                 searchQuery={searchQuery}
@@ -197,7 +197,7 @@ const Header = ({
                 onAddProduct={handleAddProduct}
                 onMyPage={handleMyPage}
               />
-            </div> */}
+            </div>
           </div>
         </div>
       </header>
