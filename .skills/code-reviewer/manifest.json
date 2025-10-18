@@ -1,0 +1,6 @@
+{
+  "name": "code-reviewer",
+  "description": "자동 코드 리뷰 Skill",
+  "inputs": ["diff"],
+  "outputs": ["reviewText"]
+}

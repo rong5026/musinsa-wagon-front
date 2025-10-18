@@ -1,0 +1,52 @@
+name: Claude Auto Review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  auto-review:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Claude CLI
+        run: npm install -g @anthropic-ai/claude-cli
+
+      - name: Set API key
+        run: echo "CLAUDE_API_KEY=${{ secrets.CLAUDE_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Generate PR diff
+        id: diff
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git diff origin/${{ github.event.pull_request.base.ref }} > diff.patch
+          echo "✅ Diff generated"
+          head -n 20 diff.patch
+
+      - name: Run Claude Skill
+        id: review
+        run: |
+          OUTPUT=$(claude run skill .skills/code-reviewer --input diff.patch)
+          echo "$OUTPUT" > review.json
+          cat review.json
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+
+      - name: Post review to PR
+        run: |
+          BODY=$(cat review.json | jq -r '.reviewText')
+          gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

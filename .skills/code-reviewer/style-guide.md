@@ -1,0 +1,5 @@
+- 함수명: camelCase
+- 클래스명: PascalCase
+- 상수명: UPPER_SNAKE_CASE
+- 한 줄 길이 120자 이하
+- import 순서: 외부 → 내부 절대 → 상대 경로
