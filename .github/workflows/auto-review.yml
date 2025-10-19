@@ -22,7 +22,7 @@ jobs:
           node-version: 20
 
       - name: Install Claude CLI
-        run: npm install -g @anthropic-ai/claude-cli
+        run: npm install -g @anthropic-ai/claude-code
 
       - name: Set API key
         run: echo "CLAUDE_API_KEY=${{ secrets.CLAUDE_API_KEY }}" >> $GITHUB_ENV
