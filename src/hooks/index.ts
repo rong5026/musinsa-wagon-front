@@ -1,3 +1,7 @@
-// Export all hooks from this file
-// Example:
-// export { useExample } from './useExample'
+/**
+ * 파일 요약: 커스텀 React 훅 인덱스
+ * 주요 내보내기: 없음 (초기 상태)
+ * 의존성: 없음
+ */
+
+export {}

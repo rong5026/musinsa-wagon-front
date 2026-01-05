@@ -1,1 +1,7 @@
-export const ACCESS_TOKEN_STORAGE_KEY = `${process.env.MODE}_access_token`
+/**
+ * 파일 요약: 상수 정의 인덱스
+ * 주요 내보내기: 없음 (초기 상태)
+ * 의존성: 없음
+ */
+
+export {}

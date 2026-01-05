@@ -68,5 +68,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'import/no-named-as-default-member': 'off',
+    'import/no-unresolved': ['error', { ignore: ['\\.css$'] }],
   },
 }

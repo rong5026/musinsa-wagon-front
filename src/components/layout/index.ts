@@ -1,5 +1,7 @@
-// Layout components exports
-export { default as Header } from './Header'
-export { ResponsiveContainer } from './ResponsiveContainer'
-export { ResponsiveNavigation } from './ResponsiveNavigation'
-export { default as Footer } from './Footer'
+/**
+ * 파일 요약: Layout 컴포넌트 인덱스
+ * 주요 내보내기: 없음 (초기 상태)
+ * 의존성: 없음
+ */
+
+export {}

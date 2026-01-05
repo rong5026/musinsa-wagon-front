@@ -1,5 +1,7 @@
-// Features exports
-export * from './products'
-export * from './notifications'
-export * from './banner'
-export * from './auth'
+/**
+ * 파일 요약: Features 모듈 인덱스
+ * 주요 내보내기: 없음 (초기 상태)
+ * 의존성: 없음
+ */
+
+export {}

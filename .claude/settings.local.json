@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "SlashCommand(/bmad:core:tasks:advanced-elicitation)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "disabledMcpjsonServers": ["shrimp-task-manager"]
+}
