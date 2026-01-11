@@ -4,7 +4,10 @@
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(wc:*)",
-      "SlashCommand(/bmad:core:tasks:advanced-elicitation)"
+      "SlashCommand(/bmad:core:tasks:advanced-elicitation)",
+      "Bash(python3:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm type-check:*)"
     ],
     "deny": [],
     "ask": []
