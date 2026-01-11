@@ -8,7 +8,7 @@
 ### 핵심 특징
 
 - **Component-based Architecture**: React 컴포넌트의 재사용성과 모듈화
-- **Feature-based Organization**: 기능 단위로 코드 조직화
+- **Colocation Pattern**: 페이지와 관련 컴포넌트를 함께 배치 (Next.js 권장)
 - **Type-safe Development**: 엄격한 TypeScript 설정으로 런타임 에러 최소화
 - **Server-side Rendering**: Next.js App Router를 통한 SSR/SSG 지원
 - **Modern State Management**: Zustand (전역) + TanStack Query (서버 상태)
@@ -66,12 +66,12 @@
 ```
 ┌─────────────────────────────────────────────────────┐
 │                 Presentation Layer                   │
-│  (Pages, Layouts, Components, UI Primitives)        │
+│  (Pages, Layouts, Shared Components, UI Primitives)  │
 └─────────────────────────────────────────────────────┘
                            ↓
 ┌─────────────────────────────────────────────────────┐
-│              Feature/Business Logic Layer            │
-│  (Features: auth, products, category, etc.)         │
+│              Business Logic Layer (Colocation)      │
+│  (Page-specific Components, Hooks within routes)    │
 └─────────────────────────────────────────────────────┘
                            ↓
 ┌─────────────────────────────────────────────────────┐
@@ -106,31 +106,33 @@
   - Radix UI 프리미티브 활용
   - 접근성 고려
 
-### 3.3 Feature-based Organization
+### 3.3 Colocation Pattern (Next.js 권장)
 
-각 기능은 자체 폴더에 독립적으로 조직화:
+페이지와 관련 컴포넌트를 함께 배치하여 관련 코드가 가까이 위치:
 
 ```
-src/features/
-├── auth/              # 인증 기능
-│   ├── components/    # 로그인 폼, 로그아웃 버튼 등
-│   ├── hooks/         # useAuth, useSession 등
-│   ├── stores/        # 인증 상태 (Zustand)
-│   └── types/         # 인증 관련 타입
-├── products/          # 상품 기능
-│   ├── components/    # 상품 카드, 목록 등
-│   ├── hooks/         # useProducts, useProductDetail 등
-│   ├── queries/       # TanStack Query 훅
-│   └── types/         # 상품 관련 타입
-└── [other features]/
+src/app/
+├── (auth)/
+│   ├── login/
+│   │   ├── _components/      # 이 페이지 전용 컴포넌트
+│   │   │   └── LoginForm.tsx
+│   │   └── page.tsx
+│   └── layout.tsx
+├── products/
+│   ├── [id]/
+│   │   ├── _components/      # 상품 상세 전용 컴포넌트
+│   │   └── page.tsx
+│   └── page.tsx
+├── layout.tsx
+└── page.tsx
 ```
 
 **이점:**
 
-- 기능별 응집도 높음
-- 기능 추가/제거 용이
-- 팀 간 병렬 개발 가능
-- 코드 재사용 최대화
+- 관련 코드가 가까이 위치하여 탐색 용이
+- Next.js 공식 권장 패턴
+- 페이지별 코드 스플리팅 자연스럽게 적용
+- `_components/` 폴더는 라우트로 노출되지 않음
 
 ---
 
@@ -195,55 +197,52 @@ Error Component 렌더링
 ```
 musinsa-wagon/
 ├── src/
-│   ├── apis/main/            # OpenAPI Generator 자동 생성
-│   │   ├── api/              # API 엔드포인트 클래스들
-│   │   └── model/            # API 응답/요청 타입들
-│   │
-│   ├── app/                  # Next.js App Router
-│   │   ├── (layout)/         # 레이아웃 그룹
-│   │   ├── page.tsx          # 홈 페이지
+│   ├── app/                  # Next.js App Router (Colocation 패턴)
+│   │   ├── globals.css       # 글로벌 스타일
 │   │   ├── layout.tsx        # 루트 레이아웃
-│   │   └── [route]/          # 동적 라우트
+│   │   ├── loading.tsx       # 로딩 UI
+│   │   ├── not-found.tsx     # 404 페이지
+│   │   ├── page.tsx          # 홈 페이지
+│   │   ├── (auth)/           # 인증 관련 라우트 그룹
+│   │   │   ├── login/
+│   │   │   │   ├── _components/  # 페이지 전용 컴포넌트
+│   │   │   │   └── page.tsx
+│   │   │   └── layout.tsx
+│   │   └── products/         # 상품 라우트
+│   │       ├── [id]/
+│   │       │   ├── _components/
+│   │       │   └── page.tsx
+│   │       └── page.tsx
 │   │
-│   ├── components/           # 재사용 가능한 컴포넌트
-│   │   ├── base/             # 기본 컴포넌트 (Badge, Button, Text)
-│   │   ├── layout/           # 레이아웃 (Header, Footer, Nav)
+│   ├── components/           # 공유 컴포넌트
+│   │   ├── layout/           # 레이아웃 (Header, Footer)
 │   │   ├── ui/               # shadcn/ui 컴포넌트
 │   │   └── provider/         # 컨텍스트 프로바이더
 │   │
-│   ├── features/             # 기능 기반 구성
-│   │   ├── auth/
-│   │   │   ├── components/
-│   │   │   ├── hooks/
-│   │   │   ├── stores/
-│   │   │   └── types/
-│   │   ├── products/
-│   │   ├── category/
-│   │   ├── banner/
-│   │   └── notifications/
-│   │
 │   ├── hooks/                # 전역 커스텀 훅
+│   │   └── useMediaQuery.ts  # 반응형 미디어쿼리
 │   ├── lib/                  # 유틸리티 및 설정
+│   │   └── utils.ts          # cn() 등 유틸리티
 │   ├── queries/              # TanStack Query 훅
 │   ├── stores/               # 전역 Zustand 스토어
 │   ├── types/                # 전역 타입 정의
-│   ├── utils/                # 유틸리티 함수
 │   ├── constants/            # 상수 정의
-│   ├── assets/               # 정적 자산 (이미지, 폰트)
+│   │   └── breakpoints.ts    # 반응형 브레이크포인트
 │   └── stories/              # Storybook 스토리
 │
+├── public/                   # 정적 파일
+│
+├── .env.example              # 환경변수 템플릿
 ├── .env.development          # 개발 환경변수
 ├── .env.production           # 프로덕션 환경변수
 ├── .env.local                # 로컬 환경변수
 │
-├── next.config.js            # Next.js 설정
+├── next.config.ts            # Next.js 설정
 ├── tsconfig.json             # TypeScript 설정 (엄격)
 ├── components.json           # shadcn/ui 설정
-├── tailwind.config.js        # Tailwind CSS 설정
-├── postcss.config.js         # PostCSS 설정
+├── postcss.config.js         # PostCSS 설정 (Tailwind v4)
 ├── vitest.config.ts          # Vitest 설정
 │
-├── .github/workflows/        # GitHub Actions CI/CD
 ├── .storybook/               # Storybook 설정
 ├── .husky/                   # Git 훅 설정
 │
@@ -355,22 +354,22 @@ musinsa-wagon/
 
 ### 10.1 새로운 기능 추가
 
-1. `src/features/[feature-name]/` 생성
-2. 컴포넌트, 훅, 스토어, 타입 작성
-3. `src/queries/` 또는 `src/hooks/`에 API 훅 추가
-4. 필요시 Zustand 스토어 생성
+1. `src/app/` 내 해당 경로에 폴더 생성
+2. 페이지 전용 컴포넌트는 `_components/` 폴더 내에 작성
+3. 전역 공유가 필요한 경우 `src/components/`, `src/hooks/` 등을 활용
+4. 필요시 전역 Zustand 스토어 생성
 
 ### 10.2 컴포넌트 재사용
 
-- Base 컴포넌트는 모든 곳에서 재사용
-- Feature 컴포넌트는 해당 기능 내에서 재사용
-- 공통 컴포넌트는 `src/components/` 활용
+- **Shared Components**: `src/components/` 내에 위치하며 프로젝트 전반에서 재사용
+- **Page-specific Components**: `_components/` 내에 위치하며 해당 경로의 페이지에서만 사용
+- **UI Primitives**: shadcn/ui 기반의 기본 컴포넌트 (`src/components/ui/`)
 
 ### 10.3 타입 정의
 
-- API 타입은 OpenAPI Generator에서 자동 생성
-- 비즈니스 로직 타입은 `src/types/` 또는 각 feature에서 정의
-- 전역 타입은 `src/types/` 중앙 관리
+- API 타입은 OpenAPI Generator에서 자동 생성 (필요 시)
+- 비즈니스 로직 타입은 각 페이지 폴더 또는 `src/types/`에서 정의
+- 전역 타입은 `src/types/`에서 중앙 관리
 
 ---
 

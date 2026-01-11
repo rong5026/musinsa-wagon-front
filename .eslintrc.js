@@ -17,19 +17,16 @@ module.exports = {
     'package.json',
     'package-lock.json',
     'yarn.lock',
+    'pnpm-lock.yaml',
     'build-dev/*',
     'build-stage/*',
     'build/*',
     '.gitignore',
     'README.md',
-    'before.js',
-    'loadAppEnv.js',
-    'next.config.js',
-    '.env',
-    'src/queries/auto-generated/*',
-    'src/types/*',
-    'middleware.ts',
-    'src/middleware.ts',
+    'next.config.ts',
+    '.env*',
+    'src/apis/main/*', // Generated API code
+    'public/*',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -55,11 +52,12 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'next/core-web-vitals',
+    'prettier', // Make sure this is last
   ],
   plugins: ['react', '@typescript-eslint', 'react-hooks'],
   rules: {
-    'no-console': process.env.NODE_ENV === 'prod' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'prod' ? 'warn' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
@@ -68,6 +66,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'import/no-named-as-default-member': 'off',
-    'import/no-unresolved': ['error', { ignore: ['\\.css$'] }],
+    // 'import/no-unresolved': ['error', { ignore: ['\\.css$'] }], // TypeScript handles this
   },
 }

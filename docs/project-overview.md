@@ -28,8 +28,8 @@
 
 ## 주요 기술 특성
 
-- **아키텍처 패턴**: Component-based architecture with feature-based folder structure
-- **API 통합**: OpenAPI Generator를 사용한 자동 TypeScript API 클라이언트 생성
+- **아키텍처 패턴**: Component-based architecture with Colocation pattern (Next.js 권장)
+- **API 통합**: OpenAPI Generator를 사용한 자동 TypeScript API 클라이언트 생성 (필요 시)
 - **상태 관리**: 전역 상태는 Zustand, 서버 상태는 TanStack Query
 - **스타일링**: Tailwind CSS v4 (유틸리티 퍼스트) + shadcn/ui 컴포넌트
 - **테스팅**: Vitest + Storybook (컴포넌트 개발 및 테스팅)
@@ -40,56 +40,39 @@
 
 ```
 src/
-├── apis/main/           # OpenAPI에서 자동 생성된 API 클라이언트
-├── app/                 # Next.js App Router 페이지
-├── components/          # 재사용 가능한 React 컴포넌트
-│   ├── base/           # 기본 컴포넌트 (Badge, Button, Text)
-│   ├── layout/         # 레이아웃 컴포넌트 (Header, Footer, Navigation)
+├── app/                 # Next.js App Router (페이지 및 페이지 전용 컴포넌트)
+├── components/          # 공유 컴포넌트
+│   ├── layout/         # Header, Footer 등 레이아웃
 │   ├── ui/             # shadcn/ui 컴포넌트
 │   └── provider/        # 컨텍스트 프로바이더
-├── features/           # 기능 기반 구성
-│   ├── auth/           # 인증
-│   ├── banner/         # 배너/캐러셀
-│   ├── category/       # 카테고리 네비게이션
-│   ├── notifications/  # 알림 시스템
-│   └── products/       # 상품 표시
-├── hooks/              # 커스텀 React 훅
-├── lib/                # 유틸리티 함수 및 설정
+├── hooks/              # 전역 커스텀 훅
+├── lib/                # 유틸리티 함수 및 설정 (cn 등)
 ├── queries/            # TanStack Query 훅
-├── stores/             # Zustand 스토어
-├── types/              # TypeScript 타입 정의
-├── utils/              # 일반 유틸리티 함수
+├── stores/             # Zustand 전역 스토어
+├── types/              # 전역 타입 정의
+├── constants/          # 상수 정의 (브레이크포인트 등)
 └── stories/            # Storybook 스토리
 ```
 
-## 주요 기능 영역
+## 주요 서비스 영역
 
-### 인증 (auth)
+### 인증 (Auth)
 
-- 세션 관리
-- 로그인/로그아웃 기능
-- 권한 검사
+- 세션 관리 및 로그인/로그아웃 기능
 
-### 배너 (banner)
+### 상품 (Products)
 
-- 캐러셀/슬라이더
-- 프로모션 배너 표시
+- 가격 추적 및 히스토리 시각화
+- 브랜드별 상품 목록 및 필터링
 
-### 카테고리 (category)
+### 알림 (Notifications)
 
-- 카테고리 네비게이션
-- 카테고리별 필터링
+- 역대 최저가 및 목표가 달성 푸시 알림
+- 명절 가짜 할인 경고 시스템
 
-### 알림 시스템 (notifications)
+### 카테고리 (Category)
 
-- Sonner 기반 토스트 알림
-- 전역 에러 처리
-
-### 상품 (products)
-
-- 상품 목록 표시
-- 상품 상세정보
-- 상품 필터링 및 검색
+- 쇼핑몰별 카테고리 네비게이션 및 필터링
 
 ## 환경 설정
 
@@ -157,9 +140,10 @@ src/
 
 ### 폴더 구조
 
-- Feature-based organization in `src/features/`
-- Component-based in `src/components/`
-- Utility functions in `src/utils/` and `src/lib/`
+- Colocation pattern in `src/app/` (페이지와 컴포넌트 함께 배치)
+- Shared components in `src/components/`
+- Utility functions in `src/lib/`
+- Constants in `src/constants/` (반응형 설정 등)
 
 ## 글로벌 에러 처리
 

@@ -1,11 +1,13 @@
 'use client'
 
-import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { PropsWithChildren } from 'react'
+
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export function CustomQueryClientProvider({ children }: PropsWithChildren) {
   const queryCache = new QueryCache({
     onError: (error: Error) => {
+      // eslint-disable-next-line no-console
       console.error('Query error:', error.message)
     },
   })

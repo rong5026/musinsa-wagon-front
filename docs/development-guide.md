@@ -206,10 +206,13 @@ docker run -p 3000:3000 \
  * 주요 내보내기: [내보내는 항목들]
  * 의존성: [외부 라이브러리]
  */
-import { Button } from '@/components/base'
-import { useAuth } from '@/features/auth'
-import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
+
+import { useRouter } from 'next/navigation'
+
+import { useMediaQuery } from '@/hooks'
+
+import { Button } from '@/components/ui'
 ```
 
 ### 컴포넌트 작성
@@ -262,36 +265,21 @@ export function useProducts() {
 
 ## 일반적인 작업
 
-### 새로운 페이지 추가
+### 새로운 페이지 및 기능 추가 (Colocation 패턴)
+
+Next.js App Router의 Colocation 패턴을 사용하여 관련 코드가 한곳에 위치하도록 합니다.
 
 ```bash
-mkdir -p src/app/products
-# src/app/products/page.tsx 생성
+mkdir -p src/app/products/_components
+# src/app/products/page.tsx (메인 페이지)
+# src/app/products/_components/ProductList.tsx (해당 페이지 전용 컴포넌트)
 ```
 
-### 새로운 컴포넌트 추가
+### 새로운 공유 컴포넌트 추가
 
 ```bash
-# src/components/base/NewComponent.tsx 생성
-# src/stories/NewComponent.stories.tsx 생성 (선택)
-```
-
-### API 스펙 변경
-
-```bash
-pnpm codegen:dev    # API 클라이언트 재생성
-pnpm codegen:prod   # 프로덕션 API
-```
-
-### 새로운 기능 추가
-
-```bash
-mkdir -p src/features/new-feature/{components,hooks,types,queries}
-# 필수 파일:
-# - components/NewFeatureComponent.tsx
-# - hooks/useNewFeature.ts
-# - types/index.ts
-# - index.ts (공개 API)
+# src/components/ui/ (shadcn/ui 기반)
+# src/components/layout/ (Header, Footer 등)
 ```
 
 ---
